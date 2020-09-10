@@ -26,12 +26,4 @@ class PatronTest < Minitest::Test
 
     assert_equal ["Dead Sea Scrolls", "Gems and Minerals"], @patron_1.interests
   end
-
 end
-
-
-
-
-
-# @patron_1.interests
-# =>
