@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/exhibit'
 require './lib/patron'
 require './lib/museum'
+require 'mocha/minitest'
 
 class MuseumTest < Minitest::Test
   def setup
@@ -98,5 +99,44 @@ class MuseumTest < Minitest::Test
     @dmns.admit(@patron_3)
 
     assert_equal [@patron_1, @patron_3], @dmns.ticket_lottery_contestants(@dead_sea_scrolls)
+  end
+
+  def test_it_can_draw_lottery_winner
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+
+    @patron_1.add_interest("Dead Sea Scrolls")
+    @patron_1.add_interest("Gems and Minerals")
+    @patron_2.add_interest("Dead Sea Scrolls")
+    @patron_3.add_interest("Dead Sea Scrolls")
+
+    @dmns.admit(@patron_1)
+    @dmns.admit(@patron_2)
+    @dmns.admit(@patron_3)
+
+
+    refute_equal "Sally", @dmns.draw_lottery_winner(@dead_sea_scrolls)
+    assert_nil @dmns.draw_lottery_winner(@gems_and_minerals)
+  end
+
+  def test_it_can_announce_a_winner
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+
+    @patron_1.add_interest("Dead Sea Scrolls")
+    @patron_1.add_interest("Gems and Minerals")
+    @patron_1.add_interest("IMAX")
+
+    @patron_2.add_interest("Dead Sea Scrolls")
+    @patron_3.add_interest("Dead Sea Scrolls")
+
+    @dmns.admit(@patron_1)
+    @dmns.admit(@patron_2)
+    @dmns.admit(@patron_3)
+    @dmns.draw_lottery_winner(@imax).stubs(:sample).returns("Bob")
+
+    assert_equal "Bob has won the IMAX exhibit lottery", @dmns.announce_lottery_winner(@imax)
   end
 end
