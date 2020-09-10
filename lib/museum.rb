@@ -24,7 +24,7 @@ class Museum
     patrons_by_interests = {}
     @exhibits.flat_map do |exhibit|
       patrons_by_interests[exhibit] = []
-      @patrons.select do |patron|
+      @patrons.find_all do |patron|
         if patron.interests.include?(exhibit.name)
           if patrons_by_interests[exhibit]
             patrons_by_interests[exhibit] << patron
@@ -35,5 +35,15 @@ class Museum
       end
     end
     patrons_by_interests
+  end
+
+  def ticket_lottery_contestants(exhibit)
+    patrons_by_exhibit_interest.flat_map do |interest, patrons|
+      if interest == exhibit
+        patrons.find_all do |patron|
+          patron.interests.include?(exhibit.name) && patron.spending_money < exhibit.cost
+        end
+      end
+    end.compact
   end
 end
