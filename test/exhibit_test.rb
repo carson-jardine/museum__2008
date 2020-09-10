@@ -13,32 +13,6 @@ class ExhibitTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal "Gems and Minerals", @exhibit.name
-    assert_equal 0, @exhibit.cost 
+    assert_equal 0, @exhibit.cost
   end
 end
-
-
-# @exhibit.name
-# => "Gems and Minerals"
-
-# @exhibit.cost
-# => 0
-
-# @patron_1 = Patron.new("Bob", 20)
-# => #<Patron:0x00007fcb13b5c7d8...>
-
-# @patron_1.name
-# => "Bob"
-
-# @patron_1.spending_money
-# => 20
-
-# @patron_1.interests
-# => []
-
-# @patron_1.add_interest("Dead Sea Scrolls")
-
-# @patron_1.add_interest("Gems and Minerals")
-
-# @patron_1.interests
-# => ["Dead Sea Scrolls", "Gems and Minerals"]
