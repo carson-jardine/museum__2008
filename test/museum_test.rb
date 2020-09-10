@@ -13,11 +13,14 @@ class MuseumTest < Minitest::Test
     assert_instance_of Museum, @dmns
   end
 
-end
-# => #<Museum:0x00007fb400a6b0b0...>
+  def test_it_has_a_name
+    assert_equal "Denver Museum of Nature and Science", @dmns.name
+  end
 
-# @dmns.name
-# => "Denver Museum of Nature and Science"
+  def test_exhibits_start_empty
+    assert_equal [], @dmns.exhibits
+  end
+end
 
 # @dmns.exhibits
 # => []
