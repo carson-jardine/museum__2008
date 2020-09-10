@@ -55,7 +55,10 @@ class Museum
   end
 
   def announce_lottery_winner(exhibit)
-
-    "#{draw_lottery_winner(exhibit)} has won the #{exhibit.name} exhibit lottery"
+    if draw_lottery_winner(exhibit) != nil
+      "#{draw_lottery_winner(exhibit)} has won the #{exhibit.name} exhibit lottery"
+    else
+      "No winners for this lottery"
+    end
   end
 end

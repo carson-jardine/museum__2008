@@ -138,5 +138,8 @@ class MuseumTest < Minitest::Test
     @dmns.draw_lottery_winner(@imax).stubs(:sample).returns("Bob")
 
     assert_equal "Bob has won the IMAX exhibit lottery", @dmns.announce_lottery_winner(@imax)
+
+    @dmns.draw_lottery_winner(@gems_and_minerals)
+    assert_equal "No winners for this lottery", @dmns.announce_lottery_winner(@gems_and_minerals)
   end
 end
